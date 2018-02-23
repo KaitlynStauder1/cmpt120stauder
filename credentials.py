@@ -19,3 +19,12 @@ def main():
     print("Account conifgured. Your new email address is", uname + "@marist.edu")
 
 main()
+
+
+
+
+    
+             
+    
+
+
