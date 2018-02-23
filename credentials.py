@@ -10,19 +10,32 @@ def names():
     return first, last
 
 # Function to generate a Marist-style username
+# Modified to generate the username in all lowercase 
 def username(first, last):
-    uname = first + '.' + last
+    uname = first.lower() + '.' + last.lower()
     return uname
 
 # Function for user to create a new password
-def password(uname):
+def password():
     passwd = input("Create a new password: ")
-
-#Function to ensure the password has at least 8 characters
     while len(passwd) < 8:
         print("Fool of a Took! That password is feeble!")
         passwd = input("Create a new password: ")
-    print("The force is strong in this one...")
+    return passwd
+
+#Function to ensure the password has at least 8 characters
+#Additional function to check password strength and requirements
+def passwordcheck(passwd, uname):
+    if passwd.lower() == passwd:
+        print("Password must contain both upper and lower case characters")
+        passwd = input("Create a new password: ")
+    if passwd.upper()==passwd:
+        print("Password must contain both upper and lower case characters")
+        passwd = input("Create a new password: ")
+    if passwd.isalpha():
+        print("This password is weak")
+    else:
+        print("The force is strong in this one...")
     print("Account conifgured. Your new email address is", uname + "@marist.edu")
 
 #Completed program
@@ -30,7 +43,8 @@ def main():
     first, last = names()
     username(first, last)
     uname = username(first, last)
-    password(uname)
+    passwd = password()
+    passwordcheck(passwd, uname)
     
 main()
 
