@@ -10,7 +10,10 @@ def main():
     stop = "quit"
     no = False
     while not no:
-        if guess != animal:
+        if guess == stop:
+            print("You have quit the game.")
+            no = True
+        elif guess != animal:
             print("That guess is incorrect, try again.")
             guess = input("Guess the name of the animal: ")
         else:
