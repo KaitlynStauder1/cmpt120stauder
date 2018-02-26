@@ -7,10 +7,11 @@ def main():
     print("The program is thinking of an animal.")
     guess = input("Guess the name of the animal: ")
     animal = "elephant"
+    stop = "quit"
     no = False
     while not no:
         if guess != animal:
-            print("That guess is incorrect, try again or if you want to quit type stop.")
+            print("That guess is incorrect, try again.")
             guess = input("Guess the name of the animal: ")
         else:
             print("Congratulations! You have correctly guessed the animal!")
