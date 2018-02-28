@@ -9,6 +9,8 @@ def main():
     guess2 = guess.lower()
     animal = "elephant"
     stop = "q"
+    y = "yes"
+    n = "no"
     no = False
     while not no:
         if guess2[0] == stop:
@@ -21,6 +23,13 @@ def main():
         else:
             print("Congratulations! You have correctly guessed the animal!")
             no = True
+            answer = input("Do you like this animal?: ")
+            answer2 = answer.lower()
+            if answer2 == y:
+                print("That's awesome you like this animal, thanks for playing!")
+            elif answer2 == n:
+                print("Sorry you don't like this animal, but thanks for playing!")
+
 
 main()
         
