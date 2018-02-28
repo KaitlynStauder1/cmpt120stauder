@@ -8,20 +8,20 @@ def main():
     guess = input("Guess the name of the animal: ")
     guess2 = guess.lower()
     animal = "elephant"
-    stop = "quit"
+    stop = "q"
     no = False
     while not no:
-        if guess2 == stop:
+        if guess2[0] == stop:
             print("You have quit the game.")
             no = True
         elif guess2 != animal:
-            print("That guess is incorrect, try again.")
+            print("That guess is incorrect, try again!")
             guess = input("Guess the name of the animal: ")
             guess2 = guess.lower()
         else:
             print("Congratulations! You have correctly guessed the animal!")
             no = True
-        
+
 main()
         
     
