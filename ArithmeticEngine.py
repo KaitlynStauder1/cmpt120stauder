@@ -31,12 +31,16 @@ def doLoop():
             result = num1 * num2
         elif cmdlower == "div":
             num1, num2 = operands()
-            result = num1 // num2
+            try:
+                result = num1 // num2
+            except:
+                print("Unable to divide by zero!")
+                continue
         elif cmdlower == "quit":
             break
         else:
             print(cmdlower, "is an invalid command.")
-            break
+            continue
         print("The result is " + str(result) + ".\n")
 
 def main():
