@@ -3,6 +3,9 @@
 #Author: Kaitlyn Stauder
 #Date: February 23, 2018
 
+# JA: For functions that take a single operand, e.g. sin, they should perform
+# the calculation without waiting for "="
+
 from graphics import *
 import math
 
