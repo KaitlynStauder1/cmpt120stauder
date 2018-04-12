@@ -12,18 +12,16 @@ calcGrid = [[7, 8, 9, '+', 'MC'],
             [4, 5, 6, '-', 'M+'],
             [1, 2, 3, '*', 'M-'],
             ['', 0, '(', ')', 'MR'],
-            ['Mode', 'sqrt', '/', '+/-', 'MS'],
-            ['%', '^2', '.', 'Del', '=']]
+            ['%', '^2', '/', '+/-', 'MS'],
+            ['Mode', '.', 'sqrt', 'Del', '=']]
 
-sciGrid = [['x^y', 'sin', 'cos', 'tan', '10^x'],
-           ['log', 'sin^-1', 'cos^-1', 'tan^-1', 'ln'],
-           [7, 8, 9, '+', 'MC'],
-           [4, 5, 6, '-', 'M+'],
-           [1, 2, 3, '*', 'M-'],
-           ['', 0, '(', ')', 'MR'],
-           ['Mode', 'sqrt', '/', '+/-', 'MS'],
-           ['%', '^2', '.', 'Del', '=']]
-    
+sciGrid = [['x^y', 'sin', 'cos', 'tan', '10^x', 'ln', 'MS'],
+           ['log', 'sin^-1', 'cos^-1', 'tan^-1', '(', ')', 'MR'],
+           [7, 8, 9, '', '+/-', '+', 'M+'],
+           [4, 5, 6, '', '^2', '-', 'M-'],
+           [1, 2, 3, '', 'sqrt', '*', 'MC'],
+           ['Mode', 0, '.', '%', '/', 'Del', '=']]
+
 standardButtons = [['', '', '', '', ''],
                    ['', '', '', '', ''],
                    ['', '', '', '', ''],
@@ -31,14 +29,12 @@ standardButtons = [['', '', '', '', ''],
                    ['', '', '', '', ''],
                    ['', '', '', '', '']]
 
-sciButtons = [['', '', '', '', ''],
-              ['', '', '', '', ''],
-              ['', '', '', '', ''],
-              ['', '', '', '', ''],
-              ['', '', '', '', ''],
-              ['', '', '', '', ''],
-              ['', '', '', '', ''],
-              ['', '', '', '', '']]
+sciButtons = [['', '', '', '', '', '', ''],
+              ['', '', '', '', '', '', ''],
+              ['', '', '', '', '', '', ''],
+              ['', '', '', '', '', '', ''],
+              ['', '', '', '', '', '', ''],
+              ['', '', '', '', '', '', '']]
 
 
 def calcButton(x, y, value):
@@ -72,8 +68,8 @@ def createStandardCalculatorButtons(buttons):
             buttons[i][j] = calcButton(j * 80, i * 80 + 100, calcGrid[i][j])
 
 def createSciCalculatorButtons(buttons):
-    for i in range(8):
-        for j in range(5):
+    for i in range(6):
+        for j in range(7):
             buttons[i][j] = calcButton(j * 80, i * 80 + 100, sciGrid[i][j])
 
 def get_number(op):
@@ -221,6 +217,22 @@ def evaluateMultiOpExpression(number1, number2, operator):
     elif operator == 'x^y':
         return xRaisedy(number1, number2)
 
+def newDisplay(win): #this is supposed to create new display like real calc
+    inputString = ''
+    display = ''
+    displayTextElement = Text(Point(50, 100), displayString)
+    displayTextElement.draw(win)
+    if userInput not in ['Del', '=', 'Mode'] and userInput not in memoryButtons:
+                if str(userInput) in operators:
+                    inputString = inputString + ',' + str(userInput) + ','
+                else:
+                    inputString = inputString + str(userInput)
+                displayString = (displayString + str(userInput)).rjust(150)
+                displayTextElement.undraw()
+                displayTextElement = Text(Point(0, 50), displayString)
+                displayTextElement.draw(win)
+    
+
 def main():
     global win, calcGrid, sciGrid, standardButtons, sciButtons
     grid = calcGrid
@@ -313,7 +325,7 @@ def main():
                         grid = sciGrid
                         buttons = sciButtons
                         win.close()
-                        win = GraphWin('Calc', 400, 730)
+                        win = GraphWin('Calc', 560, 580)
                         createSciCalculatorButtons(buttons)
                         mode = 'scientific'
                     elif mode == 'scientific':
