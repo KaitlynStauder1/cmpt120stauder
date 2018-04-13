@@ -3,9 +3,6 @@
 #Author: Kaitlyn Stauder
 #Date: February 23, 2018
 
-# JA: For functions that take a single operand, e.g. sin, they should perform
-# the calculation without waiting for "="
-
 from graphics import *
 import math
 
@@ -51,13 +48,13 @@ def calcButton(x, y, value):
     text.draw(win)
     return button
 
-def inside(clicked, button):
+def inside(clicked, button): 
     if clicked.getX() > button.p1.getX() and clicked.getX() < button.p2.getX():
         if clicked.getY() > button.p1.getY() and clicked.getY() < button.p2.getY():
             return True
     return False
 
-def clickedButton(clicked, buttons):
+def clickedButton(clicked, buttons): 
     for i in range(len(buttons)):
         for j in range(len(buttons[0])):
             if clicked.getX() > buttons[i][j].p1.getX() and clicked.getX() < buttons[i][j].p2.getX():
@@ -220,22 +217,7 @@ def evaluateMultiOpExpression(number1, number2, operator):
     elif operator == 'x^y':
         return xRaisedy(number1, number2)
 
-def newDisplay(win): #this is supposed to create new display like real calc
-    inputString = ''
-    display = ''
-    displayTextElement = Text(Point(50, 100), displayString)
-    displayTextElement.draw(win)
-    if userInput not in ['Del', '=', 'Mode'] and userInput not in memoryButtons:
-                if str(userInput) in operators:
-                    inputString = inputString + ',' + str(userInput) + ','
-                else:
-                    inputString = inputString + str(userInput)
-                displayString = (displayString + str(userInput)).rjust(150)
-                displayTextElement.undraw()
-                displayTextElement = Text(Point(0, 50), displayString)
-                displayTextElement.draw(win)
     
-
 def main():
     global win, calcGrid, sciGrid, standardButtons, sciButtons
     grid = calcGrid
@@ -244,13 +226,15 @@ def main():
     createStandardCalculatorButtons(buttons)
     inputString = ''
     displayString = ''
-    displayTextElement = Text(Point(0, 50), "")
+    displayTextElement = Text(Point(0, 50), '')
+    displayTextElement2 = Text(Point(20, 70), '')
     displayTextElement.draw(win)
     operators = ['+', '-', '*', '/', '+/-', '^2', 'sqrt', '%', 'x^y', 'sin', 'cos', 'tan', '10^x', 'log', 'sin^-1', 'cos^-1', 'tan^-1', 'ln']
     memoryButtons = ['MC', 'M+', 'M-', 'MR', 'MS']
     memory = 0
     previousAnswer = ''
     clearWindow = False
+    clearWindow2 = False
     while True:
         clicked = win.getMouse()
         row, col = clickedButton(clicked, buttons)
@@ -261,6 +245,13 @@ def main():
             displayTextElement = Text(Point(0, 50), displayString)
             displayTextElement.draw(win)
             clearWindow = False
+        if clearWindow2: 
+            inputString = ''
+            displayString = ''
+            displayTextElement2.undraw()
+            displayTextElement2 = Text(Point(0, 70), displayString)
+            displayTextElement2.draw(win)
+            clearWindoe2 = False
         if row >= 0:
             userInput = grid[row][col]
             if userInput not in ['Del', '=', 'Mode'] and userInput not in memoryButtons:
@@ -269,22 +260,29 @@ def main():
                 else:
                     inputString = inputString + str(userInput)
                 displayString = (displayString + str(userInput)).rjust(150)
+                displayString2 = str(userInput).rjust(150)
                 displayTextElement.undraw()
+                displayTextElement2.undraw()
                 displayTextElement = Text(Point(0, 50), displayString)
+                displayTextElement2 = Text(Point(0, 70), displayString2)
                 displayTextElement.draw(win)
+                displayTextElement2.draw(win)
             else:
                 if userInput == 'Del':
                     inputString = ''
                     displayString = ''
                     previousAnswer = ''
                     displayTextElement.undraw()
+                    displayTextElement2.undraw()
                     displayTextElement = Text(Point(0, 50), displayString)
                     displayTextElement.draw(win)
+                    
                 elif userInput == '=':
                     previousAnswer = evaluateInputString(inputString)
                     displayString = previousAnswer.rjust(150)
                     displayTextElement.undraw()
-                    displayTextElement = Text(Point(0, 50), displayString)
+                    displayTextElement2.undraw()
+                    displayTextElement = Text(Point(0, 70), displayString)
                     displayTextElement.draw(win)
                     clearWindow = True
                 elif userInput in memoryButtons:
@@ -292,13 +290,14 @@ def main():
                         inputString = ''
                         displayString = ''
                         displayTextElement.undraw()
+                        displayTextElement2.undraw()
                         displayTextElement = Text(Point(0, 50), displayString)
                         displayTextElement.draw(win)
                         memory = 0
                     elif userInput == 'MR':
                         displayTextElement.undraw()
                         displayString = str(memory).rjust(150)
-                        displayTextElement = Text(Point(0, 50), displayString)
+                        displayTextElement = Text(Point(0, 70), displayString) #
                         displayTextElement.draw(win)
                         inputString = str(memory)
                     else:
@@ -319,7 +318,8 @@ def main():
                                 memory = get_number(evaluateInputString(inputString))
                             displayString = str(memory).rjust(150)
                             displayTextElement.undraw()
-                            displayTextElement = Text(Point(0, 50), displayString)
+                            displayTextElement2.undraw()
+                            displayTextElement = Text(Point(0, 70), displayString)
                             displayTextElement.draw(win)
                         inputString = str(memory)
                 elif userInput == 'Mode':
