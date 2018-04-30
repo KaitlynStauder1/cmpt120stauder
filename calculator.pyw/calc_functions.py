@@ -3,6 +3,8 @@
 #Author: Kaitlyn Stauder
 #Date: February 23, 2018
 
+# JA: Your parenthesis don't seem to be working properly
+
 from graphics import *
 import math
 

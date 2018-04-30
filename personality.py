@@ -19,6 +19,7 @@ def lookupEmotion(currEmotion, userAction):
     i = currEmotion
     j = userAction
     result = grid[i][j]
+    # JA: This could also be done with a list
     if result == 0:
         print("You're making me angry!")
         return 0       
